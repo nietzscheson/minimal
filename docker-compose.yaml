@@ -10,13 +10,16 @@ services:
       - 5432
   api:
     build: 
-      context: .docker/python
+      context: ./api
     command: python minimal.py runserver 0:8000
     ports:
       - 8000:8000
     volumes:
       - ./api:/var/www/api
     working_dir: /var/www/api
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
   client:
     build: ./.docker/node
     volumes:
