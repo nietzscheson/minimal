@@ -1,7 +1,0 @@
-Django>=3.0.3
-psycopg2-binary==2.8.4
-django-seed>=0.2.2
-Faker>=4.0
-graphene-django==2.8.0
-django-filter>=2
-django-cors-headers>=3.2.1
