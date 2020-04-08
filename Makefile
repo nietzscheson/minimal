@@ -29,3 +29,5 @@ su:
 	docker-compose run --rm app python manage.py createsuperuser
 test:
 	docker-compose run --rm api python minimal.py test
+deploy:
+	docker-compose run --rm api sls deploy
