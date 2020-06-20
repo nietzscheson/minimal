@@ -12,7 +12,7 @@ settings.configure(
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
     DEBUG=True,
     ROOT_URLCONF=sys.modules[__name__],
-    DATABASES = {'default': { 'ENGINE': 'django.db.backends.postgresql', 'NAME': 'postgres', 'USER': 'postgres', 'HOST': 'db', 'PORT': 5432 } },
+    DATABASES = {'default': { 'ENGINE': 'django.db.backends.postgresql', 'NAME': 'postgres', 'USER': 'postgres', 'HOST': 'postgres', 'PORT': 5432 } },
     INSTALLED_APPS = [
         'app.apps.AppConfig',
         'django.contrib.auth',

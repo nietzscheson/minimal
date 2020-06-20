@@ -1,13 +1,6 @@
 version: '3.7'
 
 services:
-  db:
-    image: postgres:11.2-alpine
-    restart: always
-    volumes:
-      - pgdata:/var/lib/postgresql/data/
-    ports:
-      - 5432
   api:
     build: 
       context: ./api
@@ -17,6 +10,8 @@ services:
     volumes:
       - ./api:/var/www/api
     working_dir: /var/www/api
+    depends_on: 
+      - postgres
     environment:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
@@ -28,19 +23,24 @@ services:
       - 3000:3000
     command: yarn start
     working_dir: /var/www/client
+    depends_on:
+      - api
     environment:
       - REACT_APP_API_ENTRYPOINT=${API_ENTRYPOINT}
+  postgres:
+    image: postgres:11.2-alpine
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    ports:
+      - 5432
   adminer:
     image: adminer
     restart: always
     depends_on:
-      - db
-    environment:
-      ADMINER_DEFAULT_DB_DRIVER: pgsql
-      ADMINER_DEFAULT_DB_HOST: postgres
-      ADMINER_DEFAULT_DB_NAME: core
+      - postgres
     ports:
-      - 8080:8080
+      - 9000:8080
 
 volumes:
   pgdata:
