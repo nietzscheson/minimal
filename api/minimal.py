@@ -22,6 +22,7 @@ settings.configure(
         'django_seed',
         'corsheaders'
     ],
+    AUTH_USER_MODEL = 'app.User',
     STATIC_URL = '/static/',
     MIDDLEWARE = [
         'corsheaders.middleware.CorsMiddleware'

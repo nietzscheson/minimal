@@ -11,9 +11,9 @@ down:
 volume: down
 	docker volume prune -f
 migrations:
-	# docker-compose run --rm api python minimal.py makemigrations
+	docker-compose run --rm api python minimal.py makemigrations
 migrate: migrations
-	# docker-compose run --rm api python minimal.py migrate
+	docker-compose run --rm api python minimal.py migrate
 populatedb: migrate
 	docker-compose run --rm api python minimal.py populatedb
 	docker-compose run --rm api python minimal.py seed app --number=20
