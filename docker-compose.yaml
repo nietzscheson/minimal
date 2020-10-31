@@ -1,43 +1,13 @@
 version: '3.7'
 
 services:
-  db:
-    image: postgres:11.2-alpine
-    restart: always
-    volumes:
-      - pgdata:/var/lib/postgresql/data/
-    ports:
-      - 5432
-  api:
+  minimal:
     build: 
-      context: .docker/python
+      context: ./
     command: python minimal.py runserver 0:8000
     ports:
       - 8000:8000
     volumes:
-      - ./api:/var/www/api
-    working_dir: /var/www/api
-  client:
-    build: ./.docker/node
-    volumes:
-      - ./client:/var/www/client:rw,cached
-    ports:
-      - 3000:3000
-    command: yarn start
-    working_dir: /var/www/client
-    environment:
-      - REACT_APP_API_ENTRYPOINT=${API_ENTRYPOINT}
-  adminer:
-    image: adminer
-    restart: always
-    depends_on:
-      - db
-    environment:
-      ADMINER_DEFAULT_DB_DRIVER: pgsql
-      ADMINER_DEFAULT_DB_HOST: postgres
-      ADMINER_DEFAULT_DB_NAME: core
-    ports:
-      - 8080:8080
-
+      - ./:/usr/src/app
 volumes:
   pgdata:
