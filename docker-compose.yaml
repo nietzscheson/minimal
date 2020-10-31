@@ -1,46 +1,13 @@
 version: '3.7'
 
 services:
-  api:
+  minimal:
     build: 
-      context: ./api
+      context: ./
     command: python minimal.py runserver 0:8000
     ports:
       - 8000:8000
     volumes:
-      - ./api:/var/www/api
-    working_dir: /var/www/api
-    depends_on: 
-      - postgres
-    environment:
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-  client:
-    build: ./.docker/node
-    volumes:
-      - ./client:/var/www/client:rw,cached
-    ports:
-      - 3000:3000
-    command: yarn start
-    working_dir: /var/www/client
-    depends_on:
-      - api
-    environment:
-      - REACT_APP_API_ENTRYPOINT=${API_ENTRYPOINT}
-  postgres:
-    image: postgres:11.2-alpine
-    restart: always
-    volumes:
-      - pgdata:/var/lib/postgresql/data/
-    ports:
-      - 5432
-  adminer:
-    image: adminer
-    restart: always
-    depends_on:
-      - postgres
-    ports:
-      - 9000:8080
-
+      - ./:/usr/src/app
 volumes:
   pgdata:

@@ -7,12 +7,21 @@ from django.urls import path
 from django.core.management import execute_from_command_line
 from django.http import HttpResponse
 from django.apps import AppConfig
- 
+
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 settings.configure(
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
     DEBUG=True,
     ROOT_URLCONF=sys.modules[__name__],
-    DATABASES = {'default': { 'ENGINE': 'django.db.backends.postgresql', 'NAME': 'postgres', 'USER': 'postgres', 'HOST': 'postgres', 'PORT': 5432 } },
+    DATABASES = {
+        'default': {
+           'ENGINE': 'django.db.backends.sqlite3',
+           'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    },
     INSTALLED_APPS = [
         'app.apps.AppConfig',
         'django.contrib.auth',
@@ -48,7 +57,7 @@ from django.views.decorators.csrf import csrf_exempt
 from graphene_django.views import GraphQLView
 
 def index(request):
-    return HttpResponse('<h1>AVA Health Project !</h1>')
+    return HttpResponse('<h1>Django Minimal Project!</h1>')
 
 urlpatterns = [
     url(r'^$', index),
