@@ -2,3 +2,7 @@
 *__pycache__
 .env
 db.sqlite3
+.serverless/*
+!.serverless/cloudformation-template-create-stack.json
+!.serverless/cloudformation-template-update-stack.json
+!.serverless/serverless-state.json

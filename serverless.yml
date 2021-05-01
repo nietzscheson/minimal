@@ -1,0 +1,35 @@
+service: minimal-project
+
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
+
+custom:
+  wsgi:
+    app: minimal.wsgi.application
+    packRequirements: false
+  pythonRequirements:
+    dockerizePip: non-linux
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: dev
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+       - s3:GetObject
+       - s3:PutObject
+      Resource: "arn:aws:s3:::*"
+
+functions:
+  app:
+    handler: wsgi.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+      - schedule:
+          rate: rate(5 minutes)
+          input:
+              warmer: true
