@@ -18,10 +18,8 @@ populatedb: migrate
 logs:
 	docker-compose logs
 	docker ps -a
-postgres:
-	docker-compose exec db psql -U postgres
-app:
-	docker-compose exec app sh
+minimal:
+	docker-compose exec minimal sh
 su:
 	docker-compose run --rm minimal python manage.py createsuperuser
 test:
