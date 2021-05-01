@@ -2,12 +2,11 @@ version: '3.7'
 
 services:
   minimal:
+    container_name: minimal
     build: 
       context: ./
     command: python minimal.py runserver 0:8000
     ports:
       - 8000:8000
     volumes:
-      - ./:/usr/src/app
-volumes:
-  pgdata:
+      - ./:/app
