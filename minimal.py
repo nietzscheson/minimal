@@ -1,17 +1,18 @@
 import sys
-import os
 
 from django.conf import settings
-from django.conf.urls import re_path
+from django.urls import path, re_path
 from django.core.management import execute_from_command_line
 from django.http import HttpResponse
-from django.apps import AppConfig
+from django.views.debug import default_urlconf
+from django.contrib import admin
 
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 settings.configure(
+    SECRET_KEY="change-me",
     DEBUG=True,
     ROOT_URLCONF=sys.modules[__name__],
     DATABASES = {
@@ -38,11 +39,13 @@ settings.configure(
     ]
 )
 
-def index(request):
+def minimal(request):
     return HttpResponse('<h1>Django Minimal Project!</h1>')
 
 urlpatterns = [
-    re_path(r'^$', index),
+    re_path(r'^minimal/?$', minimal, name='minimal'),
+    path('', default_urlconf, name='index'),
+
 ]
 
 if __name__ == '__main__':
