@@ -1,22 +1,26 @@
-version: '3.7'
-
 services:
   minimal:
+    container_name: core
     build: 
-      context: ./
-    command: python minimal.py runserver 0:8000
+      context: ./core
+      target: development
     ports:
       - 8000:8000
     volumes:
-      - ./:/usr/src/app
+      - ./core:/home/core
     depends_on: 
-      - postgres
+      postgres:
+        condition: service_healthy
   postgres:
-    image: postgres:11.2-alpine
-    restart: always
-    volumes:
-      - pgdata:/var/lib/postgresql/data/
+    image: postgres:13.2-alpine
+    container_name: postgres
+    restart: unless-stopped
     ports:
-      - 5432
-volumes:
-  pgdata:
+        - 5432:5432
+    environment:
+        POSTGRES_PASSWORD: "postgres"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

@@ -1,6 +1,6 @@
 import graphene
 from graphene_django.types import DjangoObjectType
-from app.models import Patient
+from apps.minimal.models import Patient
 
 
 class PatientType(DjangoObjectType):

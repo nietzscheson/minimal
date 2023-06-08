@@ -9,9 +9,9 @@ up: build
 down:
 	docker-compose down --remove-orphans -v
 migrations:
-	docker-compose run --rm minimal python minimal.py makemigrations
+	# docker-compose run --rm minimal python minimal.py makemigrations
 migrate: migrations
-	docker-compose run --rm minimal python minimal.py migrate
+	# docker-compose run --rm minimal python minimal.py migrate
 populatedb: migrate
 	docker-compose run --rm minimal python minimal.py populatedb
 	docker-compose run --rm minimal python minimal.py seed app --number=20

@@ -1,8 +1,8 @@
 import json
 
 from graphene_django.utils.testing import GraphQLTestCase
-from app.schema import schema
-from app.models import Patient
+from apps.minimal.schema import schema
+from apps.minimal.models import Patient
 
 class MyFancyTestCase(GraphQLTestCase):
     # Here you need to inject your test case's schema

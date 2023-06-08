@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from django_seed import Seed
 from django.contrib.auth.hashers import make_password
-from app.models import User
+from apps.minimal.models import User
 
 class Command(BaseCommand):
     help = 'Populate Database'
