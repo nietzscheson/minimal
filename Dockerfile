@@ -1,12 +1,12 @@
-FROM python:3.8.0-alpine
+FROM python:3.11.4
 
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-RUN pip3 install --upgrade pip
+ENV PYTHONFAULTHANDLER 1
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY requirements.txt ./
 
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
